@@ -7,6 +7,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store/index'
+import axios from './axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -16,6 +17,16 @@ new Vue({
   el: '#app',
   router,
   store,
+  axios,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  mounted: function() {
+    axios.get("http://127.0.0.1:6080/getToken")
+        .then(function(response) {
+          console.log("请求成功：%o",response);
+        })
+        .catch(function(error) {
+          console.log("请求失败：%o",error);
+        })
+  }
 })
